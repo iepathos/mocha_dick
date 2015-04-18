@@ -1,2 +1,4 @@
 certifi==14.05.14
+passlib==1.6.2
+rethinkdb==2.0.0-1
 tornado==4.1

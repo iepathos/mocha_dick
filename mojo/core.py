@@ -1,25 +1,24 @@
 
-from tornado.web import RequestHandler, StaticFileHandler, Application
+from tornado.web import StaticFileHandler, Application
 from mojo.config import settings
 import tornado.web
+from mojo.handlers import HomeHandler
+from mojo.auth.handlers import AuthLoginHandler, AuthLogoutHandler, RegistrationHandler
 
 
-class HelloHandler(RequestHandler):
-
-    def get(self):
-        self.write("Hello, world")
-
-
-class Application(Application):
+class HotWire(Application):
 
     def __init__(self):
         handlers = [
-            (r'/', HelloHandler),
-            (r"/(apple-touch-icon\.png)", StaticFileHandler,
+            (r'/', HomeHandler),
+            (r'/register/', RegistrationHandler),
+            (r'/login/', AuthLoginHandler),
+            (r'/logout/', AuthLogoutHandler),
+            (r'/(apple-touch-icon\.png)', StaticFileHandler,
              dict(path=settings['static_path'])),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
-def make_app():
-    return Application()
+def make_love_child():
+    return HotWire()
