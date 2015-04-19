@@ -55,7 +55,6 @@ def rethink_listener():
         if change['new_val']['funds'] != change['old_val']['funds']:
             msg['funds'] = change['new_val']['funds']
 
-        # print(msg['funds'])
         for client in LISTENERS:
             if client.get_current_user() == user:
                 io_loop.add_callback(partial(client.on_message, msg))
