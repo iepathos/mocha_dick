@@ -4,7 +4,7 @@ from tornado.web import authenticated
 from mojo.wallet.wallet import get_funds
 from tornado.gen import coroutine
 from mojo.db import LISTENERS
-from tornado import escape
+import json
 
 
 class HomeHandler(BaseHandler):
@@ -26,7 +26,7 @@ class DataSyncHandler(BaseWebSocketHandler):
         LISTENERS.append(self)
 
     def on_message(self, message):
-        self.write_message(escape.xhtml_escape(message['data']))
+        self.write_message(json.dumps(message))
 
     def on_close(self):
         LISTENERS.remove(self)

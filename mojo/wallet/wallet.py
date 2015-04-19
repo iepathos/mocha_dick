@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from mojo.db import get_db_conn
 from tornado.gen import coroutine
 import rethinkdb as r
 
