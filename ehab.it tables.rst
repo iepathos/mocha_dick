@@ -1,12 +1,21 @@
-User Table
+Users Table
     Every User has a:
-        name
+        usernamename
         password
+        funds
 
-Wallet Table
-    Every Wallet has a:
-        User
-        Amount
+Wagers Table
+    user id
+    amount wagered
+    match
+    team
+    match_complete boolean
+    timestamp wager made
+    timestamp wager resolved
+
+bet on match winner
+bet on round winner
+bet on clutch or choke moments
 
 Wager that a Team will Win a match Table
     Every Wager has a:

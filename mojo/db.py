@@ -32,8 +32,14 @@ def make_user_table():
 
 
 @coroutine
+def make_match_table():
+    yield make_table('matches')
+
+
+@coroutine
 def setup_tables():
     yield make_user_table()
+    yield make_match_table()
 
 
 @coroutine
