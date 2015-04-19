@@ -14,7 +14,7 @@ $(document).ready(function(){
       
 
       if (msg['funds'] != null) {
-        $('#wallet-funds').html(msg['funds']);
+        $('#funds').html(msg['funds']);
       }
 
 
