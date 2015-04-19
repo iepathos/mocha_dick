@@ -1,10 +1,13 @@
 {% extends '../templates/base.html' %}
 
-{% block title %}CS:GO{% end %}
+{% block title %}home{% end %}
 
+{% block extra_head %}
+
+{% end %}
 
 {% block content %}
-    <div class="col-xs-offset-2 col-xs-8">
+    <div class="col-xs-offset-2 col-xs-7">
         <center>
             <h1>Clutch or Choke?</h1>
 
@@ -13,13 +16,18 @@
         </center>
     </div>
 
-    <div class="col-xs-2">
+    <div class="col-xs-3">
         <div class="pull-right">
             O herro, {{ user }}!
         </div>
         <br>
+        <div id='wallet-funds' class="pull-right">
+            wallet: {{ funds }}
+        </div>
+        <br>
+        <a href="/wallet/" class='pull-right'>add to wallet</a>
+        <br>
         <a href="/logout/" class='pull-right'>logout</a> <br>
-        <a href="#" class='pull-right'>wallet</a>
     </div>
 
 {% end %}

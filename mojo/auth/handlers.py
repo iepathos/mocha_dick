@@ -31,7 +31,7 @@ class AuthLoginHandler(AuthBaseHandler):
     def post(self):
         username = self.get_argument("username", "")
         password = self.get_argument("password", "")
-        auth = yield verify_user(username, password)
+        auth = yield verify_user(self.db, username, password)
         if auth:
             self.set_current_user(username)
             self.redirect(self.get_argument("next", u"/"))

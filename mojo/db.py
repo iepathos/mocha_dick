@@ -1,6 +1,11 @@
 import rethinkdb as r
 from mojo.config import RETHINK_HOST, RETHINK_PORT
 from tornado.gen import coroutine
+from tornado.ioloop import IOLoop
+from functools import partial
+
+
+LISTENERS = []
 
 
 @coroutine
@@ -27,16 +32,30 @@ def make_user_table():
 
 
 @coroutine
-def make_wallet_table():
-    yield make_table('wallet')
-
-
-@coroutine
 def setup_tables():
     yield make_user_table()
-    yield make_wallet_table()
 
 
 @coroutine
 def drop_tables():
     pass
+
+
+@coroutine
+def rethink_listener():
+    db_conn = yield get_db_conn()
+    users = r.table('users')
+    io_loop = IOLoop.instance()
+    feed = yield users.changes().run(db_conn)
+    while (yield feed.fetch_next()):
+        change = yield feed.next()
+        msg = {}
+        user = change['new_val']['id']
+
+        if change['new_val']['funds'] != change['old_val']['funds']:
+            msg['funds'] = change['new_val']['funds']
+
+        # print(msg['funds'])
+        for client in LISTENERS:
+            if client.get_current_user() == user:
+                io_loop.add_callback(partial(client.on_message, msg))

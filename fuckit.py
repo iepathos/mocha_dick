@@ -3,14 +3,22 @@
 
 from tornado.ioloop import IOLoop
 from mojo.core import make_love_child
-from mojo.db import setup_tables
+from mojo.db import get_db_conn, setup_tables, rethink_listener
+from tornado import httpserver
+from mojo.config import settings
+from tornado.gen import coroutine
+import threading
 
+
+@coroutine
 def fuckit_makemoney():
-    seadog = make_love_child()
+    db_conn = yield get_db_conn()
+    seadog = make_love_child(db_conn)
     seadog.listen(8888)
-    IOLoop.current().start()
 
 
 if __name__ == '__main__':
     setup_tables()
-    fuckit_makemoney()
+    threading.Thread(target=rethink_listener).start()
+    IOLoop.current().run_sync(fuckit_makemoney)
+    IOLoop.current().start()

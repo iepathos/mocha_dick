@@ -5,8 +5,7 @@ from mojo.util import encrypt, verify
 
 
 @coroutine
-def add_user(username, password):
-    conn = yield get_db_conn()
+def add_user(conn, username, password):
     # encrypt password
     hash = encrypt(password)
     insert = yield r.table('users').insert({
@@ -17,14 +16,12 @@ def add_user(username, password):
 
 
 @coroutine
-def delete_user(username):
-    conn = yield get_db_conn()
+def delete_user(conn, username):
     yield r.table('users').get(username).delete().run(conn)
 
 
 @coroutine
-def verify_user(username, password):
-    conn = yield get_db_conn()
+def verify_user(conn, username, password):
     data = yield r.table('users').get(username).run(conn)
     if data is not None:
         return verify(password, data['password'])
