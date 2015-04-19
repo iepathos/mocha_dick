@@ -19,7 +19,7 @@ def add_user(username, password):
 @coroutine
 def delete_user(username):
     conn = yield get_db_conn()
-    yield r.table('users').filter(r.row['username'] == username).delete().run(conn)
+    yield r.table('users').get(username).delete().run(conn)
 
 
 @coroutine

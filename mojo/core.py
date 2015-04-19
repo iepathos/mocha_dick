@@ -8,17 +8,17 @@ from mojo.auth.handlers import AuthLoginHandler, AuthLogoutHandler, Registration
 
 class HotWire(Application):
 
-    def __init__(self):
+    def __init__(self, config):
         handlers = [
             (r'/', HomeHandler),
             (r'/register/', RegistrationHandler),
             (r'/login/', AuthLoginHandler),
             (r'/logout/', AuthLogoutHandler),
             (r'/(apple-touch-icon\.png)', StaticFileHandler,
-             dict(path=settings['static_path'])),
+             dict(path=config['static_path'])),
         ]
-        tornado.web.Application.__init__(self, handlers, **settings)
+        tornado.web.Application.__init__(self, handlers, **config)
 
 
 def make_love_child():
-    return HotWire()
+    return HotWire(config=settings)

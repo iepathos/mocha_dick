@@ -6,7 +6,16 @@ from mojo.handlers import BaseHandler
 from mojo.auth.user import add_user, verify_user
 
 
-class AuthLoginHandler(BaseHandler):
+class AuthBaseHandler(BaseHandler):
+
+    def set_current_user(self, user):
+        if user:
+            self.set_secure_cookie("user", tornado.escape.json_encode(user))
+        else:
+            self.clear_cookie("user")
+
+
+class AuthLoginHandler(AuthBaseHandler):
 
     def get(self):
         try:
@@ -33,12 +42,6 @@ class AuthLoginHandler(BaseHandler):
                         error=error,
                         user=user)
 
-    def set_current_user(self, user):
-        if user:
-            self.set_secure_cookie("user", tornado.escape.json_encode(user))
-        else:
-            self.clear_cookie("user")
-
 
 class AuthLogoutHandler(BaseHandler):
 
@@ -47,7 +50,7 @@ class AuthLogoutHandler(BaseHandler):
         self.redirect(self.get_argument("next", "/"))
 
 
-class RegistrationHandler(BaseHandler):
+class RegistrationHandler(AuthBaseHandler):
 
     def get(self):
         self.render(template('register.html'), error='')
@@ -65,9 +68,3 @@ class RegistrationHandler(BaseHandler):
         else:
             error = rdb.get('first_error')
             self.render(template('register.html'), error=error)
-
-    def set_current_user(self, user):
-        if user:
-            self.set_secure_cookie("user", tornado.escape.json_encode(user))
-        else:
-            self.clear_cookie("user")

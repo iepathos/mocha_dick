@@ -16,7 +16,7 @@ def make_table(name):
     conn = yield get_db_conn()
     try:
         yield r.table_create(name).run(conn)
-        print("Created table %s" % name)
+        print("Table %s created successfully." % name)
     except r.RqlRuntimeError:
         print("Table %s already exists... skipping." % name)
 
@@ -27,8 +27,14 @@ def make_user_table():
 
 
 @coroutine
+def make_wallet_table():
+    yield make_table('wallet')
+
+
+@coroutine
 def setup_tables():
     yield make_user_table()
+    yield make_wallet_table()
 
 
 @coroutine
