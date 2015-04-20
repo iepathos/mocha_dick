@@ -43,11 +43,6 @@ def setup_tables():
 
 
 @coroutine
-def drop_tables():
-    pass
-
-
-@coroutine
 def rethink_listener():
     db_conn = yield get_db_conn()
     users = r.table('users')
