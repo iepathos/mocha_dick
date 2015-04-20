@@ -4,8 +4,8 @@ from tests.seadog_test import TestSeadogBase
 
 class TestUserRegistration(TestSeadogBase):
 
-    def test_get_home(self):
+    def test_get_unauthenticated_home(self):
         res = self.fetch('/',
                          method='GET',
                          follow_redirects=True)
-        self.assertEqual(res.code, 200)
+        self.assertTrue(res.effective_url.endswith('/login/?next=%2F'))

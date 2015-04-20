@@ -2,10 +2,16 @@ from tests.seadog_test import TestSeadogBase
 import urllib
 
 
-class TestUserRegistration(TestSeadogBase):
+class TestAuthHandlers(TestSeadogBase):
 
     def test_get_register(self):
         res = self.fetch('/register/',
+                         method='GET',
+                         follow_redirects=False)
+        self.assertEqual(res.code, 200)
+
+    def test_get_login(self):
+        res = self.fetch('/login/',
                          method='GET',
                          follow_redirects=False)
         self.assertEqual(res.code, 200)
