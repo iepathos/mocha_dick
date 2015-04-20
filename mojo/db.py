@@ -67,8 +67,6 @@ def rethink_listener():
         change = yield feed.next()
         msg = {}
         user = change['new_val']['id']
-        # print(change['new_val'])
-        # print(change['old_val'])
         if not change['old_val']:
             msg['funds'] = change['new_val']['funds']
         elif change['new_val']['funds'] != change['old_val']['funds']:
