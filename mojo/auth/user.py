@@ -11,7 +11,8 @@ def add_user(conn, username, password):
     insert = yield r.table('users').insert({
             'id': username,
             'password': hash,
-            'funds': 0
+            'funds': 0,
+            'is_admin': False
         }).run(conn)
     return insert
 
@@ -28,3 +29,10 @@ def verify_user(conn, username, password):
         return verify(password, data['password'])
     else:
         return False
+
+
+@coroutine
+def make_admin(conn, username):
+    yield r.table('users').get(username).update({
+            'is_admin': True
+        }).run(conn)
