@@ -7,13 +7,13 @@ STATIC_DIR = os.path.join(APP_DIR, "static")
 
 RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
+DB_NAME = 'seadog'
 
 settings = {
     'template_path': TEMPLATES_DIR,
     'static_path': STATIC_DIR,
     'auto_reload': True,
     'debug': True,
-    'static_path': STATIC_DIR,
     'xsrf_cookies': True,
     'cookie_secret': 'The rubber bands all point northward',
     'serve_traceback': True,

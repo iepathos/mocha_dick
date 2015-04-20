@@ -1,5 +1,5 @@
 import rethinkdb as r
-from mojo.config import RETHINK_HOST, RETHINK_PORT
+from mojo.config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
 from functools import partial
@@ -12,7 +12,12 @@ LISTENERS = []
 def get_db_conn():
     """Yields a RethinkDB connection"""
     r.set_loop_type("tornado")
-    conn = yield r.connect(host=RETHINK_HOST, port=RETHINK_PORT)
+    try:
+        conn = yield r.connect(host=RETHINK_HOST,
+                               port=RETHINK_PORT,
+                               db=DB_NAME)
+    except r.RqlRuntimeError:
+        conn = yield r.connect(host=RETHINK_HOST, port=RETHINK_PORT)
     return conn
 
 
@@ -37,6 +42,16 @@ def make_match_table():
 
 
 @coroutine
+def make_teams_table():
+    yield make_table('teams')
+
+
+@coroutine
+def make_player_table():
+    yield make_table('players')
+
+
+@coroutine
 def setup_tables():
     yield make_user_table()
     yield make_match_table()
@@ -52,8 +67,11 @@ def rethink_listener():
         change = yield feed.next()
         msg = {}
         user = change['new_val']['id']
-
-        if change['new_val']['funds'] != change['old_val']['funds']:
+        # print(change['new_val'])
+        # print(change['old_val'])
+        if not change['old_val']:
+            msg['funds'] = change['new_val']['funds']
+        elif change['new_val']['funds'] != change['old_val']['funds']:
             msg['funds'] = change['new_val']['funds']
 
         for client in LISTENERS:

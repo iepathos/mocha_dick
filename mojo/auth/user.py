@@ -10,7 +10,8 @@ def add_user(conn, username, password):
     hash = encrypt(password)
     insert = yield r.table('users').insert({
             'id': username,
-            'password': hash
+            'password': hash,
+            'funds': 0
         }).run(conn)
     return insert
 

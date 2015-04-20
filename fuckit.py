@@ -17,8 +17,14 @@ def fuckit_makemoney():
     seadog.listen(8888)
 
 
-if __name__ == '__main__':
-    setup_tables()
+@coroutine
+def get_hard():
+    yield setup_tables()
+    print('Starting Rethink Listener')
     threading.Thread(target=rethink_listener).start()
+
+
+if __name__ == '__main__':
+    get_hard()
     IOLoop.current().run_sync(fuckit_makemoney)
     IOLoop.current().start()

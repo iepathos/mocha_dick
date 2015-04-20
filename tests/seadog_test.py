@@ -1,17 +1,14 @@
-
-import os
-import sys
 from tornado.testing import AsyncHTTPTestCase
-
+from tornado.gen import coroutine
+import rethinkdb as r
 from mojo.config import APP_DIR, TEMPLATES_DIR, STATIC_DIR
-sys.path.append(os.path.join(APP_DIR, '..'))
+from mojo.core import HotWire
 
 test_settings = {
     'template_path': TEMPLATES_DIR,
     'static_path': STATIC_DIR,
     'auto_reload': True,
     'debug': True,
-    'static_path': STATIC_DIR,
     'xsrf_cookies': False,
     'cookie_secret': 'The rubber bands all point northward',
     'serve_traceback': True,
@@ -19,12 +16,12 @@ test_settings = {
 }
 
 
-
-from mojo.core import HotWire
-app = HotWire(config=test_settings)
+db_conn = r.connect(host='localhost', port=28015, db='test')
+app = HotWire(config=test_settings, db_conn=db_conn)
 
 
 class TestSeadogBase(AsyncHTTPTestCase):
+
     def setUp(self):
         super(TestSeadogBase, self).setUp()
 

@@ -59,7 +59,7 @@ class RegistrationHandler(AuthBaseHandler):
     def post(self):
         username = self.get_argument('username')
         password = self.get_argument('password')
-        rdb = yield add_user(username, password)
+        rdb = yield add_user(self.db, username, password)
         if rdb.get('first_error') is None:
             # user added successfully
             # log user in and redirect

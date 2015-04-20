@@ -37,7 +37,7 @@ def withdraw(conn, username, funds):
 @coroutine
 def get_funds(conn, username):
     data = yield r.table('users').get(username).run(conn)
-    if data is not None:
-        return data.get('funds')
-    else:
+    if data is None:
         return 0
+    else:
+        return data.get('funds', 0)
