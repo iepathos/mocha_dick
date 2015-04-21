@@ -7,5 +7,40 @@
 {% end %}
 
 {% block content %}
-    {{ match }}
+    <div class="col-xs-8 col-xs-offset-2">
+        <h1>{{ match['teama'] }} v.s. {{ match['teamb'] }}</h1>
+        <h2>{{ match['score'] }}</h2>
+        
+        <h3>Start {{ match['start'] }}</h3>
+        <h3>End {{ match['end'] }}</h3>
+
+        {% if  match['live'] %}
+            <h3>Is Live</h3>
+            {% include '_make_match_live_form.html' %}
+
+            
+            <button id='teama-won'>{{ match['teama'] }} Won</button>
+            <button id='teamb-won'>{{ match['teamb'] }} Won</button>
+        
+
+        {% else %}
+            <h3>Is Not Live</h3>
+            {% include '_make_match_live_form.html' %}
+        {% end %}
+
+        
+
+        <p>Start a match (makes it live)</p>
+        <p>Update match information</p>
+        <p>Update scores as they occur, this progresses rounds for betters.  Requires human watching the match stream.  Functionality will be supplemented and possibly replaced by a bot.</p>
+    </div>
+{% end %}
+
+{% block extra_js %}
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            
+        });
+    </script>
+
 {% end %}
