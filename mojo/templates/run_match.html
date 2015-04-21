@@ -4,7 +4,7 @@
 {% block title %}Run Match{% end %}
 
 {% block extra_head %}
-
+    <link rel="stylesheet" href="{{ static_url('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}">
 {% end %}
 
 {% block content %}
@@ -25,6 +25,14 @@
             <form action="/run/match/" method='post' id='update-score'>
                 {% module xsrf_form_html() %}
                 <input type="hidden" name='name' value="{{ match['id'] }}">
+
+                Round End Time
+                <div class='input-group date' id='dtp'>
+                    <input type='text' class="form-control" id="round_end" name="round_end" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <button id='teama-won' class='btn btn-primary'>{{ match['teama'] }} Won</button>
                 <button id='teamb-won' class='btn btn-primary'>{{ match['teamb'] }} Won</button>
             </form>
@@ -44,10 +52,11 @@
 {% end %}
 
 {% block extra_js %}
-    <script type='text/javascript'>
-        $(document).ready(function(){
-            
+    <script type="text/javascript" src="{{ static_url('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dtp').datetimepicker();
         });
     </script>
-
 {% end %}
