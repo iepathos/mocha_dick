@@ -1,5 +1,6 @@
 {% extends '../templates/base.html' %}
 
+
 {% block title %}Run Match{% end %}
 
 {% block extra_head %}
@@ -13,26 +14,32 @@
         
         <h3>Start {{ match['start'] }}</h3>
         <h3>End {{ match['end'] }}</h3>
+        <hr>
 
         {% if  match['live'] %}
-            <h3>Is Live</h3>
-            {% include '_make_match_live_form.html' %}
+            <h3>Live</h3>
+            {% include '_toggle_match_live_form.html' %}
 
+            <h3>Round {{ get_current_round(match['score']) }} </h3>
             
-            <button id='teama-won'>{{ match['teama'] }} Won</button>
-            <button id='teamb-won'>{{ match['teamb'] }} Won</button>
-        
+            <form action="/run/match/" method='post'>
+                {% module xsrf_form_html() %}
+                <input type="hidden" name='name' value="{{ match['id'] }}">
+                <button id='teama-won'>{{ match['teama'] }} Won</button>
+                <button id='teamb-won'>{{ match['teamb'] }} Won</button>
+            </form>
 
         {% else %}
-            <h3>Is Not Live</h3>
-            {% include '_make_match_live_form.html' %}
+            <h3>Offline</h3>
+            {% include '_toggle_match_live_form.html' %}
         {% end %}
 
         
-
-        <p>Start a match (makes it live)</p>
-        <p>Update match information</p>
-        <p>Update scores as they occur, this progresses rounds for betters.  Requires human watching the match stream.  Functionality will be supplemented and possibly replaced by a bot.</p>
+        <hr>
+        <p>Start a match (make it live)</p>
+        <p>Identify which team wins each round</p>
+        <p>Adjust round end-times to be precise based on video feed.</p>
+        <p>Requires human watching the match stream to manage.  Functionality will be supplemented and possibly replaced by a bot.</p>
     </div>
 {% end %}
 

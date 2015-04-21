@@ -4,7 +4,7 @@ from tornado.gen import coroutine
 from mojo.util import template, error_404
 from mojo.handlers import BaseHandler
 from tornado.web import authenticated
-from mojo.csgo.matches import add_match, update_score, get_match, toggle_match_live
+from mojo.csgo.matches import add_match, update_score, get_match, toggle_match_live, get_current_round
 
 
 class MakeMatchHandler(BaseHandler):
@@ -38,7 +38,7 @@ class RunMatchHandler(BaseHandler):
         match = yield get_match(self.db, name)
         if match is None or len(match) == 0:
             error_404(self)
-        self.render(template('run_match.html'), match=match)
+        self.render(template('run_match.html'), match=match, get_current_round=get_current_round)
 
     @authenticated
     @coroutine

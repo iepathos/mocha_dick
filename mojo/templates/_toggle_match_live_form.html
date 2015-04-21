@@ -1,6 +1,6 @@
 <form action="/toggle/match/live/" method='post'>
     {% module xsrf_form_html() %}
-    <input type="hidden" name='name' value='{{ match['id'] }}'>
+    <input type="hidden" name='name' value="{{ match['id'] }}">
     {% if match['live'] %}
         <input  id='toggle-live' type="submit" value='Take Match Offline' class='btn btn-primary'>
     {% else %}
