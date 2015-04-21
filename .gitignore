@@ -1,2 +1,3 @@
 *.pyc
 rethinkdb_data/
+bower_components/
