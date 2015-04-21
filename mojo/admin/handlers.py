@@ -5,7 +5,7 @@ from mojo.util import template
 from tornado.web import authenticated
 
 
-class GameAdminHandler(BaseHandler):
+class AdminHandler(BaseHandler):
 
     @authenticated
     def get(self):

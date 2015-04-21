@@ -22,7 +22,7 @@ class MakeMatchHandler(BaseHandler):
         teama = self.get_argument('teama')
         teamb = self.get_argument('teamb')
         start = self.get_argument('start')
-        rdb = yield add_match(self.db, name, teama, teamb, start=start)
+        rdb = yield add_match(self.db, name, teama, teamb, start)
         if rdb.get('first_error') is None:
             self.redirect('/run/match/%s' % name)
         else:

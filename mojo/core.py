@@ -5,7 +5,7 @@ import tornado.web
 from mojo.auth.handlers import AuthLoginHandler, AuthLogoutHandler, RegistrationHandler
 from mojo.wallet.handlers import WalletHandler
 from mojo.home import HomeHandler, DataSyncHandler
-from mojo.admin.handlers import GameAdminHandler
+from mojo.admin.handlers import AdminHandler
 from mojo.csgo.handlers import MakeMatchHandler, RunMatchHandler
 
 
@@ -19,7 +19,7 @@ class HotWire(Application):
             (r'/logout/', AuthLogoutHandler),
             (r'/wallet/', WalletHandler),
             (r'/datasync/', DataSyncHandler),
-            (r'/admin/', GameAdminHandler),
+            (r'/admin/', AdminHandler),
             (r'/make/match/', MakeMatchHandler),
             (r'/run/match/(?P<name>[^\/]+)', RunMatchHandler),
             (r'/(apple-touch-icon\.png)', StaticFileHandler,

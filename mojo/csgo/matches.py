@@ -23,7 +23,7 @@ def add_match(conn, name, teama, teamb, start):
 @coroutine
 def get_match(conn, name):
     """Returns True if withdrawal goes through, False if not."""
-    data = yield r.table('matches').get('name').run(conn)
+    data = yield r.table('matches').get(name).run(conn)
     return data
 
 

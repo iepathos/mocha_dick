@@ -9,17 +9,17 @@ import threading
 
 
 @coroutine
-def fuckit_makemoney():
-    db_conn = yield get_db_conn()
-    seadog = make_love_child(db_conn)
-    seadog.listen(8888)
-
-
-@coroutine
 def get_hard():
     yield setup_tables()
     print('Starting Rethink Listener')
     threading.Thread(target=rethink_listener).start()
+
+
+@coroutine
+def fuckit_makemoney():
+    db_conn = yield get_db_conn()
+    seadog = make_love_child(db_conn)
+    seadog.listen(8888)
 
 
 if __name__ == '__main__':
