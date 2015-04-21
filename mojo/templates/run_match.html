@@ -22,11 +22,11 @@
 
             <h3>Round {{ get_current_round(match['score']) }} </h3>
             
-            <form action="/run/match/" method='post'>
+            <form action="/run/match/" method='post' id='update-score'>
                 {% module xsrf_form_html() %}
                 <input type="hidden" name='name' value="{{ match['id'] }}">
-                <button id='teama-won'>{{ match['teama'] }} Won</button>
-                <button id='teamb-won'>{{ match['teamb'] }} Won</button>
+                <button id='teama-won' class='btn btn-primary'>{{ match['teama'] }} Won</button>
+                <button id='teamb-won' class='btn btn-primary'>{{ match['teamb'] }} Won</button>
             </form>
 
         {% else %}
