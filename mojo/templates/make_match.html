@@ -1,0 +1,25 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}Make Match{% end %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ static_url('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}">
+{% end %}
+
+{% block content %}
+    <div class="col-xs-5 col-xs-offset-2">
+    <h2>Make New Match</h2>
+    {% include '_make_match_form.html' %}
+    </div>
+{% end %}
+
+
+{% block extra_js %}
+    <script type="text/javascript" src="{{ static_url('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dtp').datetimepicker();
+        });
+    </script>
+{% end %}

@@ -4,8 +4,6 @@
 from tornado.ioloop import IOLoop
 from mojo.core import make_love_child
 from mojo.db import get_db_conn, setup_tables, rethink_listener
-from tornado import httpserver
-from mojo.config import settings
 from tornado.gen import coroutine
 import threading
 

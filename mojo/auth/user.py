@@ -36,3 +36,9 @@ def make_admin(conn, username):
     yield r.table('users').get(username).update({
             'is_admin': True
         }).run(conn)
+
+
+@coroutine
+def is_admin(conn, username):
+    user = yield r.table('users').get(username).run(conn)
+    return user.get('is_admin', False)

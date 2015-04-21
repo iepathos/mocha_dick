@@ -15,3 +15,9 @@ def encrypt(password):
 
 def verify(password, hash):
     return pbkdf2_sha256.verify(password, hash)
+
+
+def error_404(self):
+    self.clear()
+    self.set_status(404)
+    self.render(template('404.html'))
