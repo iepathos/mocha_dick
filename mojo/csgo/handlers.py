@@ -47,6 +47,8 @@ class RunMatchHandler(BaseHandler):
         score = self.get_argument('score')
         rdb = yield update_score(self.db, name, score)
 
+        round_end = self.get_argument('round_end')
+
 
 class LiveMatchHandler(BaseHandler):
 
