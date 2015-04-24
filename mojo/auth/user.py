@@ -27,8 +27,7 @@ def verify_user(conn, username, password):
     data = yield r.table('users').get(username).run(conn)
     if data is not None:
         return verify(password, data['password'])
-    else:
-        return False
+    return False
 
 
 @coroutine
