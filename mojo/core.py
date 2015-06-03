@@ -6,7 +6,6 @@ from mojo.auth.handlers import AuthLoginHandler, AuthLogoutHandler, Registration
 from mojo.wallet.handlers import WalletHandler
 from mojo.home import HomeHandler, DataSyncHandler
 from mojo.admin.handlers import AdminHandler
-from mojo.csgo.handlers import MakeMatchHandler, RunMatchHandler, LiveMatchHandler
 
 
 class HotWire(Application):
@@ -20,9 +19,6 @@ class HotWire(Application):
             (r'/wallet/', WalletHandler),
             (r'/datasync/', DataSyncHandler),
             (r'/admin/', AdminHandler),
-            (r'/make/match/', MakeMatchHandler),
-            (r'/run/match/(?P<name>[^\/]+)', RunMatchHandler),
-            (r'/toggle/match/live/', LiveMatchHandler),
             (r'/(apple-touch-icon\.png)', StaticFileHandler,
              dict(path=config['static_path'])),
         ]

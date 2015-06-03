@@ -1,6 +1,6 @@
 {% extends '../templates/base.html' %}
 
-{% block title %}bet{% end %}
+{% block title %}{% end %}
 
 {% block extra_head %}
 
@@ -8,13 +8,8 @@
 
 {% block content %}
   <div class="col-xs-offset-2 col-xs-7">
-      <h5>Bets made after actual round end are refunded.  Timestamps are compared server-side.</h5>
-      <center class='hidden'>
-          <h1>Clutch or Choke?</h1>
-
-          <button class='btn btn-lg' id='clutch'>Clutch</button>
-          <button class='btn btn-lg' id='choke'>Choke</button>
-      </center>
+      <h5>Let's get fucking crazy....</h5>
+      <p>Seadoggie v0.1</p>
   </div>
 
   <div class="col-xs-3">
@@ -37,4 +32,8 @@
   <script src='{{ static_url('js/datasync.js') }}'></script>
 
   <script src='{{ static_url('js/get_cookie.js') }}'></script>
+
+  <script>
+
+  </script>
 {% end %}
