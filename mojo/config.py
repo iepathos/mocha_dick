@@ -9,6 +9,10 @@ RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
 DB_NAME = 'seadog'
 
+
+APP_PUBLIC_KEY = 'fuckit'
+
+
 settings = {
     'template_path': TEMPLATES_DIR,
     'static_path': STATIC_DIR,

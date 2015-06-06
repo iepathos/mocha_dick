@@ -3,6 +3,7 @@ from tornado.web import StaticFileHandler, Application
 from mojo.config import settings
 import tornado.web
 from mojo.auth.handlers import AuthLoginHandler, AuthLogoutHandler, RegistrationHandler
+from mojo.auth.handlers import APILoginHandler, APIRegistrationHandler
 from mojo.wallet.handlers import WalletHandler
 from mojo.home import HomeHandler, DataSyncHandler
 from mojo.admin.handlers import AdminHandler
@@ -19,6 +20,10 @@ class HotWire(Application):
             (r'/wallet/', WalletHandler),
             (r'/datasync/', DataSyncHandler),
             (r'/admin/', AdminHandler),
+
+            (r'/api/login/', APILoginHandler),
+            (r'/api/register/', APIRegistrationHandler),
+
             (r'/(apple-touch-icon\.png)', StaticFileHandler,
              dict(path=config['static_path'])),
         ]

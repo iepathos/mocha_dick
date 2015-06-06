@@ -5,11 +5,11 @@ from mojo.util import encrypt, verify
 
 
 @coroutine
-def add_user(conn, username, password):
+def add_user(conn, email, password):
     # encrypt password
     hash = encrypt(password)
     insert = yield r.table('users').insert({
-            'id': username,
+            'id': email,
             'password': hash,
             'funds': 0,
             'is_admin': False
@@ -18,26 +18,26 @@ def add_user(conn, username, password):
 
 
 @coroutine
-def delete_user(conn, username):
-    yield r.table('users').get(username).delete().run(conn)
+def delete_user(conn, email):
+    yield r.table('users').get(email).delete().run(conn)
 
 
 @coroutine
-def verify_user(conn, username, password):
-    data = yield r.table('users').get(username).run(conn)
+def verify_user(conn, email, password):
+    data = yield r.table('users').get(email).run(conn)
     if data is not None:
         return verify(password, data['password'])
     return False
 
 
 @coroutine
-def make_admin(conn, username):
-    yield r.table('users').get(username).update({
+def make_admin(conn, email):
+    yield r.table('users').get(email).update({
             'is_admin': True
         }).run(conn)
 
 
 @coroutine
-def is_admin(conn, username):
-    user = yield r.table('users').get(username).run(conn)
+def is_admin(conn, email):
+    user = yield r.table('users').get(email).run(conn)
     return user.get('is_admin', False)

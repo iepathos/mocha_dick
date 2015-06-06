@@ -1,5 +1,5 @@
 import os
-from mojo.config import TEMPLATES_DIR
+from mojo.config import TEMPLATES_DIR, APP_PUBLIC_KEY
 from passlib.hash import pbkdf2_sha256
 
 
@@ -21,3 +21,14 @@ def error_404(self):
     self.clear()
     self.set_status(404)
     self.render(template('404.html'))
+
+
+def verify_key(key):
+    if key == APP_PUBLIC_KEY:
+        return True
+    return False
+
+WRONG_KEY = {
+    'error': 'Wrong key.',
+    'status_code': 403,
+}

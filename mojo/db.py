@@ -47,11 +47,6 @@ def make_teams_table():
 
 
 @coroutine
-def make_player_table():
-    yield make_table('players')
-
-
-@coroutine
 def setup_tables():
     yield make_user_table()
     yield make_match_table()
