@@ -9,7 +9,6 @@ RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
 DB_NAME = 'seadog'
 
-
 APP_PUBLIC_KEY = 'fuckit'
 
 

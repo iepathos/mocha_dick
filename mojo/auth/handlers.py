@@ -89,7 +89,8 @@ class APIRegistrationHandler(APIBaseHandler):
                     'status_code': 201,
                 }
             else:
-                error = rdb.get('first_error')
+                # error = rdb.get('first_error')
+                error = 'Error adding user to database.'
                 r = {
                     'error': error,
                     'status_code': 500,
@@ -97,7 +98,6 @@ class APIRegistrationHandler(APIBaseHandler):
         else:
             r = WRONG_KEY
         self.write(r)
-
 
 
 class AuthLogoutHandler(BaseHandler):
@@ -123,5 +123,6 @@ class RegistrationHandler(AuthBaseHandler):
             self.set_current_user(email)
             self.redirect('/')
         else:
-            error = rdb.get('first_error')
+            # error = rdb.get('first_error')
+            error = 'Error adding user to database.'
             self.render(template('register.html'), error=error)
